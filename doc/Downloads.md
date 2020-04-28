@@ -1,25 +1,25 @@
-# Pip.Services Prometheus Components for Node.js Downloads
+# Pip.Services Prometheus Components for Dart Downloads
 
-Binary releases of the commons are available through NPM global repository. 
-To use the commons you can either include dependency into your **package.json** file:
+Binary releases of the RPC are available through **Pub.dev** global repository. 
+To use the RPC you can either include dependency into your **pubspec.yaml** file:
 
-```js
+```yaml
 {
     ...
-    dependencies: {
-        "pip-services-prometheus-node": "^3.0.*"
-    }
+    dependencies: 
+        pip_services_prometheus: ^1.0.0
+    
 }
 ``` 
 
-Or install it by npm:
+Or install it by pub get:
 
 ```bash
-npm install pip-services-prometheus-node
+pub get pip-services-prometheus-dart
 ```
 
 Source code can be checked out from github repository:
 
 ```bash
-git clone git@github.com:pip-services/pip-services-prometheus-node.git
+git clone git@github.com:pip-services-dart/pip-services-prometheus-dart.git
 ```

@@ -5,7 +5,7 @@ services:
     build:
       context: ..
       dockerfile: docker/Dockerfile.test
-    command: ${TEST_CMD:-npm test}
+    #command: ${TEST_CMD:-npm test}
     depends_on:
       - prometheus
       - pushgateway

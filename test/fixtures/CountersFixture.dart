@@ -1,65 +1,65 @@
-// let assert = require('chai').assert;
+import 'dart:async';
 
-// import { CounterType } from 'pip-services3-components-node';
-// import { CachedCounters } from 'pip-services3-components-node';
+import 'package:test/test.dart';
 
-// export class CountersFixture {
-//     private _counters: CachedCounters;
+import 'package:pip_services3_components/pip_services3_components.dart';
 
-//     public constructor(counters: CachedCounters) {
-//         this._counters = counters;
-//     }
+class CountersFixture {
+  CachedCounters _counters;
 
-//     public testSimpleCounters(done) {
-//         this._counters.last("Test.LastValue", 123);
-//         this._counters.last("Test.LastValue", 123456);
+  CountersFixture(CachedCounters counters) {
+    _counters = counters;
+  }
 
-//         var counter = this._counters.get("Test.LastValue", CounterType.LastValue);
-//         assert.isNotNull(counter);
-//         assert.isNotNull(counter.last);
-//         assert.equal(counter.last, 123456, 3);
+  void testSimpleCounters() async {
+    _counters.last('Test.LastValue', 123);
+    _counters.last('Test.LastValue', 123456);
 
-//         this._counters.incrementOne("Test.Increment");
-//         this._counters.increment("Test.Increment", 3);
+    var counter = _counters.get('Test.LastValue', CounterType.LastValue);
+    expect(counter, isNotNull);
+    expect(counter.last, isNotNull);
+    expect(counter.last, 123456); //, 3
 
-//         counter = this._counters.get("Test.Increment", CounterType.Increment);
-//         assert.isNotNull(counter);
-//         assert.equal(counter.count, 4);
+    _counters.incrementOne('Test.Increment');
+    _counters.increment('Test.Increment', 3);
 
-//         this._counters.timestampNow("Test.Timestamp");
-//         this._counters.timestampNow("Test.Timestamp");
+    counter = _counters.get('Test.Increment', CounterType.Increment);
+    expect(counter, isNotNull);
+    expect(counter.count, 4);
 
-//         counter = this._counters.get("Test.Timestamp", CounterType.Timestamp);
-//         assert.isNotNull(counter);
-//         assert.isNotNull(counter.time);
+    _counters.timestampNow('Test.Timestamp');
+    _counters.timestampNow('Test.Timestamp');
 
-//         this._counters.stats("Test.Statistics", 1);
-//         this._counters.stats("Test.Statistics", 2);
-//         this._counters.stats("Test.Statistics", 3);
+    counter = _counters.get('Test.Timestamp', CounterType.Timestamp);
+    expect(counter, isNotNull);
+    expect(counter.time, isNotNull);
 
-//         counter = this._counters.get("Test.Statistics", CounterType.Statistics);
-//         assert.isNotNull(counter);
-//         assert.equal(counter.average, 2, 3);
+    _counters.stats('Test.Statistics', 1);
+    _counters.stats('Test.Statistics', 2);
+    _counters.stats('Test.Statistics', 3);
 
-//         this._counters.dump();
+    counter = _counters.get('Test.Statistics', CounterType.Statistics);
+    expect(counter, isNotNull);
+    expect(counter.average, 2); // , 3
 
-//         setTimeout(done, 1000);
-//     }
+    _counters.dump();
 
-//     public testMeasureElapsedTime(done) {
-//         let timer = this._counters.beginTiming("Test.Elapsed");
+    await Future.delayed(Duration(milliseconds: 1000));
+  }
 
-//         setTimeout(() => {
-//             timer.endTiming();
+  void testMeasureElapsedTime() {
+    var timer = _counters.beginTiming('Test.Elapsed');
 
-//             let counter = this._counters.get("Test.Elapsed", CounterType.Interval);
-//             assert.isTrue(counter.last > 50);
-//             assert.isTrue(counter.last < 5000);
+    Future.delayed(Duration(milliseconds: 100), () async {
+      timer.endTiming();
 
-//             this._counters.dump();
+      var counter = _counters.get('Test.Elapsed', CounterType.Interval);
+      expect(counter.last > 50, isTrue);
+      expect(counter.last < 5000, isTrue);
 
-//             setTimeout(done, 1000);
-//         }, 100);
-//     }
-    
-// }
+      _counters.dump();
+
+      await Future.delayed(Duration(milliseconds: 1000));
+    });
+  }
+}

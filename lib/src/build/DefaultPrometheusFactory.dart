@@ -9,7 +9,6 @@ import '../services/PrometheusMetricsService.dart';
 /// See [Factory]
 /// See [PrometheusCounters]
 /// See [PrometheusMetricsService]
-
 class DefaultPrometheusFactory extends Factory {
   static final descriptor =
       Descriptor('pip-services', 'factory', 'prometheus', 'default', '1.0');
@@ -19,7 +18,6 @@ class DefaultPrometheusFactory extends Factory {
       Descriptor('pip-services', 'metrics-service', 'prometheus', '*', '1.0');
 
   /// Create a new instance of the factory.
-
   DefaultPrometheusFactory() : super() {
     registerAsType(DefaultPrometheusFactory.PrometheusCountersDescriptor,
         PrometheusCounters);

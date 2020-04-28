@@ -40,9 +40,8 @@ import '../count/PrometheusCounterConverter.dart';
 ///         'connection.port', 8080
 ///     ]));
 ///
-///     service.open('123', (err) => {
-///        console.log('The Prometheus metrics service is accessible at http://+:8080/metrics');
-///     });
+///     await service.open('123')
+///     print('The Prometheus metrics service is accessible at http://+:8080/metrics');
 
 class PrometheusMetricsService extends RestService {
   CachedCounters _cachedCounters;
@@ -50,7 +49,6 @@ class PrometheusMetricsService extends RestService {
   String _instance;
 
   /// Creates a new instance of this service.
-
   PrometheusMetricsService() : super() {
     dependencyResolver.put('cached-counters',
         Descriptor('pip-services', 'counters', 'cached', '*', '1.0'));
@@ -60,10 +58,10 @@ class PrometheusMetricsService extends RestService {
 
   /// Sets references to dependent components.
   ///
-  /// - references 	references to locate the component dependencies.
+  /// - [references] 	references to locate the component dependencies.
   @override
   void setReferences(IReferences references) {
-    setReferences(references);
+    super.setReferences(references);
 
     _cachedCounters = dependencyResolver
         .getOneOptional<PrometheusCounters>('prometheus-counters');
@@ -98,7 +96,6 @@ class PrometheusMetricsService extends RestService {
   ///
   /// - [req]   an HTTP request
   /// - [res]   an HTTP response
-
   void _metrics(angel.RequestContext req, angel.ResponseContext res) {
     var counters = _cachedCounters != null ? _cachedCounters.getAll() : null;
     var body =
@@ -114,7 +111,6 @@ class PrometheusMetricsService extends RestService {
   /// The counters will be returned and then zeroed out.
   /// - [req]   an HTTP request
   /// - [res]   an HTTP response
-
   void _metricsAndReset(angel.RequestContext req, angel.ResponseContext res) {
     var counters = _cachedCounters != null ? _cachedCounters.getAll() : null;
     var body =

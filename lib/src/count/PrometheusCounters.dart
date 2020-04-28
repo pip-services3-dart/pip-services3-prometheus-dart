@@ -64,7 +64,7 @@ class PrometheusCounters extends CachedCounters
   bool _opened = false;
   String _source;
   String _instance;
-  bool _pushEnabled;
+  bool _pushEnabled = true;
   http.Client _client;
   String _requestRoute;
   String _uri;
@@ -128,10 +128,15 @@ class PrometheusCounters extends CachedCounters
     ConnectionParams connection;
     try {
       connection = await _connectionResolver.resolve(correlationId);
+      if (connection == null) {
+        throw Exception('Empty config.');
+      }
     } catch (err) {
       _client = null;
-      _logger.warn(correlationId,
-          'Connection to Prometheus server is not configured: ' + err);
+      _logger.warn(
+          correlationId,
+          'Connection to Prometheus server is not configured: ' +
+              err.toString());
       return null;
     }
     var job = _source ?? 'unknown';
@@ -150,7 +155,9 @@ class PrometheusCounters extends CachedCounters
   @override
   Future close(String correlationId) async {
     _opened = false;
-    _client.close();
+    if (_client != null) {
+      _client.close();
+    }
     _client = null;
     _requestRoute = null;
   }

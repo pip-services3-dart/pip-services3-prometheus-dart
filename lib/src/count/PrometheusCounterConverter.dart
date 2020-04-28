@@ -10,7 +10,6 @@ class PrometheusCounterConverter {
   /// - [counters]  a list of counters to convert.
   /// - [source]    a source (context) name.
   /// - [instance]  a unique instance name (usually a host name).
-
   static String toString2(
       List<Counter> counters, String source, String instance) {
     if (counters == null || counters.isEmpty) return '';
@@ -100,8 +99,12 @@ class PrometheusCounterConverter {
           break;
         case CounterType
             .Timestamp: // Prometheus doesn't support non-numeric metrics
-          builder += '# TYPE ' + counterName + ' gauge\n';//' untyped\n';
-          builder += counterName + labels + ' ' + StringConverter.toString2(counter.time.millisecondsSinceEpoch) + '\n';
+          builder += '# TYPE ' + counterName + ' gauge\n'; //' untyped\n';
+          builder += counterName +
+              labels +
+              ' ' +
+              StringConverter.toString2(counter.time.millisecondsSinceEpoch) +
+              '\n';
           break;
       }
     }
@@ -145,7 +148,7 @@ class PrometheusCounterConverter {
     var builder = '{';
     for (var key in labels.keys) {
       if (builder.length > 1) builder += ',';
-      builder += key + '=' '+ labels[key] + ' '';
+      builder += key + '="' + labels[key] + '"';
     }
     builder += '}';
 
@@ -153,8 +156,9 @@ class PrometheusCounterConverter {
   }
 
   static String _parseCounterName(Counter counter) {
-    if (counter == null && counter.name == null && counter.name == '')
+    if (counter == null && counter.name == null && counter.name == '') {
       return '';
+    }
 
     var nameParts = counter.name.split('.');
 
