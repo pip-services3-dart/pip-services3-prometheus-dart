@@ -1,0 +1,11 @@
+/.vscode
+/.git
+/.gitignore
+/.dockerignore
+/doc
+/node_modules
+/docker
+/*.sh
+/*.ps1
+/*.md
+/example
