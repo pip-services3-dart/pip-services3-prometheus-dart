@@ -33,7 +33,7 @@ void main() {
 
         var counter1 = Counter(counterName, CounterType.Increment);
         counter1.count = 1;
-        counter1.time = RandomDateTime.nextDateTime(DateTime.now());
+        counter1.time = RandomDateTime.nextDateTime(DateTime.now().toUtc());
         counters.add(counter1);
 
         var counter2 = Counter(counterName, CounterType.Interval);
@@ -41,12 +41,12 @@ void main() {
         counter2.max = 13;
         counter2.min = 3;
         counter2.average = 3.5;
-        counter2.time = RandomDateTime.nextDateTime(DateTime.now());
+        counter2.time = RandomDateTime.nextDateTime(DateTime.now().toUtc());
         counters.add(counter2);
 
         var counter3 = Counter(counterName, CounterType.LastValue);
         counter3.last = 2;
-        counter3.time = RandomDateTime.nextDateTime(DateTime.now());
+        counter3.time = RandomDateTime.nextDateTime(DateTime.now().toUtc());
         counters.add(counter3);
 
         var counter4 = Counter(counterName, CounterType.Statistics);
@@ -54,7 +54,7 @@ void main() {
         counter4.max = 113;
         counter4.min = 13;
         counter4.average = 13.5;
-        counter4.time = RandomDateTime.nextDateTime(DateTime.now());
+        counter4.time = RandomDateTime.nextDateTime(DateTime.now().toUtc());
         counters.add(counter4);
 
         var body = PrometheusCounterConverter.toString2(
@@ -102,7 +102,7 @@ void main() {
 
         var counter1 = Counter(counterName, CounterType.Increment);
         counter1.count = 1;
-        counter1.time = RandomDateTime.nextDateTime(DateTime.now());
+        counter1.time = RandomDateTime.nextDateTime(DateTime.now().toUtc());
         counters.add(counter1);
 
         var counter2 = Counter(counterName, CounterType.Interval);
@@ -110,12 +110,12 @@ void main() {
         counter2.max = 13;
         counter2.min = 3;
         counter2.average = 3.5;
-        counter2.time = RandomDateTime.nextDateTime(DateTime.now());
+        counter2.time = RandomDateTime.nextDateTime(DateTime.now().toUtc());
         counters.add(counter2);
 
         var counter3 = Counter(counterName, CounterType.LastValue);
         counter3.last = 2;
-        counter3.time = RandomDateTime.nextDateTime(DateTime.now());
+        counter3.time = RandomDateTime.nextDateTime(DateTime.now().toUtc());
         counters.add(counter3);
 
         var counter4 = Counter(counterName, CounterType.Statistics);
@@ -123,7 +123,7 @@ void main() {
         counter4.max = 113;
         counter4.min = 13;
         counter4.average = 13.5;
-        counter4.time = RandomDateTime.nextDateTime(DateTime.now());
+        counter4.time = RandomDateTime.nextDateTime(DateTime.now().toUtc());
         counters.add(counter4);
 
         var body = PrometheusCounterConverter.toString2(
@@ -171,7 +171,7 @@ void main() {
 
         var counter1 = Counter(counterName, CounterType.Increment);
         counter1.count = 1;
-        counter1.time = RandomDateTime.nextDateTime(DateTime.now());
+        counter1.time = RandomDateTime.nextDateTime(DateTime.now().toUtc());
         counters.add(counter1);
 
         var counter2 = Counter(counterName, CounterType.Interval);
@@ -179,12 +179,12 @@ void main() {
         counter2.max = 13;
         counter2.min = 3;
         counter2.average = 3.5;
-        counter2.time = RandomDateTime.nextDateTime(DateTime.now());
+        counter2.time = RandomDateTime.nextDateTime(DateTime.now().toUtc());
         counters.add(counter2);
 
         var counter3 = Counter(counterName, CounterType.LastValue);
         counter3.last = 2;
-        counter3.time = RandomDateTime.nextDateTime(DateTime.now());
+        counter3.time = RandomDateTime.nextDateTime(DateTime.now().toUtc());
         counters.add(counter3);
 
         var counter4 = Counter(counterName, CounterType.Statistics);
@@ -192,7 +192,7 @@ void main() {
         counter4.max = 113;
         counter4.min = 13;
         counter4.average = 13.5;
-        counter4.time = RandomDateTime.nextDateTime(DateTime.now());
+        counter4.time = RandomDateTime.nextDateTime(DateTime.now().toUtc());
         counters.add(counter4);
 
         var body = PrometheusCounterConverter.toString2(
@@ -233,7 +233,7 @@ void main() {
       counter.max = 3;
       counter.count = 2;
       counter.last = 3;
-      counter.time = RandomDateTime.nextDateTime(DateTime.now());
+      counter.time = RandomDateTime.nextDateTime(DateTime.now().toUtc());
       counters.add(counter);
 
       var body = PrometheusCounterConverter.toString2(counters, null, null);
@@ -250,7 +250,7 @@ void main() {
       counter.max = 3;
       counter.count = 2;
       counter.last = 3;
-      counter.time = RandomDateTime.nextDateTime(DateTime.now());
+      counter.time = RandomDateTime.nextDateTime(DateTime.now().toUtc());
       counters.add(counter);
 
       var body =
@@ -266,13 +266,13 @@ void main() {
       var counter1 = Counter('MyCounter1', CounterType.Increment);
       counter1.count = 2;
       counter1.last = 3;
-      counter1.time = RandomDateTime.nextDateTime(DateTime.now());
+      counter1.time = RandomDateTime.nextDateTime(DateTime.now().toUtc());
       counters.add(counter1);
 
       var counter2 = Counter('MyCounter2', CounterType.Increment);
       counter2.count = 5;
       counter2.last = 10;
-      counter2.time = RandomDateTime.nextDateTime(DateTime.now());
+      counter2.time = RandomDateTime.nextDateTime(DateTime.now().toUtc());
       counters.add(counter2);
 
       var body =
@@ -289,13 +289,13 @@ void main() {
       var counter1 = Counter('MyCounter1.exec_time', CounterType.Increment);
       counter1.count = 2;
       counter1.last = 3;
-      counter1.time = RandomDateTime.nextDateTime(DateTime.now());
+      counter1.time = RandomDateTime.nextDateTime(DateTime.now().toUtc());
       counters.add(counter1);
 
       var counter2 = Counter('MyCounter2.exec_time', CounterType.Increment);
       counter2.count = 5;
       counter2.last = 10;
-      counter2.time = RandomDateTime.nextDateTime(DateTime.now());
+      counter2.time = RandomDateTime.nextDateTime(DateTime.now().toUtc());
       counters.add(counter2);
 
       var body =
@@ -313,14 +313,14 @@ void main() {
           Counter('MyService1.MyCommand1.exec_time', CounterType.Increment);
       counter1.count = 2;
       counter1.last = 3;
-      counter1.time = RandomDateTime.nextDateTime(DateTime.now());
+      counter1.time = RandomDateTime.nextDateTime(DateTime.now().toUtc());
       counters.add(counter1);
 
       var counter2 =
           Counter('MyService2.MyCommand2.exec_time', CounterType.Increment);
       counter2.count = 5;
       counter2.last = 10;
-      counter2.time = RandomDateTime.nextDateTime(DateTime.now());
+      counter2.time = RandomDateTime.nextDateTime(DateTime.now().toUtc());
       counters.add(counter2);
 
       var body =
@@ -341,7 +341,7 @@ void main() {
       counter1.average = 2;
       counter1.count = 2;
       counter1.last = 3;
-      counter1.time = RandomDateTime.nextDateTime(DateTime.now());
+      counter1.time = RandomDateTime.nextDateTime(DateTime.now().toUtc());
       counters.add(counter1);
 
       var counter2 =
@@ -351,7 +351,7 @@ void main() {
       counter2.average = 3;
       counter2.count = 5;
       counter2.last = 10;
-      counter2.time = RandomDateTime.nextDateTime(DateTime.now());
+      counter2.time = RandomDateTime.nextDateTime(DateTime.now().toUtc());
       counters.add(counter2);
 
       var body =
@@ -377,7 +377,7 @@ void main() {
       counter1.average = 2.0;
       counter1.count = 2;
       counter1.last = 3;
-      counter1.time = RandomDateTime.nextDateTime(DateTime.now());
+      counter1.time = RandomDateTime.nextDateTime(DateTime.now().toUtc());
       counters.add(counter1);
 
       var counter2 =
@@ -387,7 +387,7 @@ void main() {
       counter2.average = 3.0;
       counter2.count = 5;
       counter2.last = 10;
-      counter2.time = RandomDateTime.nextDateTime(DateTime.now());
+      counter2.time = RandomDateTime.nextDateTime(DateTime.now().toUtc());
       counters.add(counter2);
 
       var body =
@@ -410,14 +410,14 @@ void main() {
           Counter('MyService1.MyCommand1.exec_time', CounterType.LastValue);
       counter1.count = 2;
       counter1.last = 3;
-      counter1.time = RandomDateTime.nextDateTime(DateTime.now());
+      counter1.time = RandomDateTime.nextDateTime(DateTime.now().toUtc());
       counters.add(counter1);
 
       var counter2 =
           Counter('MyService2.MyCommand2.exec_time', CounterType.LastValue);
       counter2.count = 5;
       counter2.last = 10;
-      counter2.time = RandomDateTime.nextDateTime(DateTime.now());
+      counter2.time = RandomDateTime.nextDateTime(DateTime.now().toUtc());
       counters.add(counter2);
 
       var body =
