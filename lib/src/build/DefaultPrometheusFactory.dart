@@ -6,7 +6,7 @@ import '../services/PrometheusMetricsService.dart';
 
 /// Creates Prometheus components by their descriptors.
 ///
-/// See [Factory]
+/// See [Factory](https://pub.dev/documentation/pip_services3_components/latest/pip_services3_components/Factory-class.html)
 /// See [PrometheusCounters]
 /// See [PrometheusMetricsService]
 class DefaultPrometheusFactory extends Factory {

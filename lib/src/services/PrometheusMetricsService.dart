@@ -22,14 +22,14 @@ import '../count/PrometheusCounterConverter.dart';
 ///
 /// ### References ###
 ///
-/// - *:logger:*:*:1.0         (optional) [ILogger] components to pass log messages
-/// - *:counters:*:*:1.0         (optional) [ICounters] components to pass collected measurements
-/// - *:discovery:*:*:1.0        (optional) [IDiscovery] services to resolve connection
-/// - *:endpoint:http:*:1.0          (optional) [HttpEndpoint] reference to expose REST operation
+/// - *:logger:*:*:1.0         (optional) [ILogger](https://pub.dev/documentation/pip_services3_components/latest/pip_services3_components/ILogger-class.html) components to pass log messages
+/// - *:counters:*:*:1.0         (optional) [ICounters](https://pub.dev/documentation/pip_services3_components/latest/pip_services3_components/ICounters-class.html) components to pass collected measurements
+/// - *:discovery:*:*:1.0        (optional) [IDiscovery](https://pub.dev/documentation/pip_services3_components/latest/pip_services3_components/IDiscovery-class.html) services to resolve connection
+/// - *:endpoint:http:*:1.0          (optional) [HttpEndpoint](https://pub.dev/documentation/pip_services3_rpc/latest/pip_services3_rpc/HttpEndpoint-class.html) reference to expose REST operation
 /// - *:counters:prometheus:*:1.0    [PrometheusCounters] reference to retrieve collected metrics
 ///
-/// See [RestService]
-/// See [RestClient]
+/// See [RestService](https://pub.dev/documentation/pip_services3_rpc/latest/pip_services3_rpc/RestService-class.html)
+/// See [RestClient](https://pub.dev/documentation/pip_services3_rpc/latest/pip_services3_rpc/RestClient-class.html)
 ///
 /// ### Example ###
 ///
