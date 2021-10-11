@@ -62,12 +62,12 @@ class PrometheusCounters extends CachedCounters
   final _logger = CompositeLogger();
   final _connectionResolver = HttpConnectionResolver();
   bool _opened = false;
-  String _source;
-  String _instance;
+  String? _source;
+  String? _instance;
   bool _pushEnabled = true;
-  http.Client _client;
-  String _requestRoute;
-  String _uri;
+  http.Client? _client;
+  String? _requestRoute;
+  String? _uri;
 
   /// Creates a new instance of the performance counters.
   PrometheusCounters() : super();
@@ -80,8 +80,8 @@ class PrometheusCounters extends CachedCounters
     super.configure(config);
 
     _connectionResolver.configure(config);
-    _source = config.getAsStringWithDefault('source', _source);
-    _instance = config.getAsStringWithDefault('instance', _instance);
+    _source = config.getAsNullableString('source') ?? _source;
+    _instance = config.getAsNullableString('instance') ?? _instance;
     _pushEnabled = config.getAsBooleanWithDefault('push_enabled', true);
   }
 
@@ -117,7 +117,7 @@ class PrometheusCounters extends CachedCounters
   /// Return 			Future that receives null no errors occured.
   /// Throws error
   @override
-  Future open(String correlationId) async {
+  Future open(String? correlationId) async {
     if (_opened) {
       return null;
     }
@@ -125,7 +125,8 @@ class PrometheusCounters extends CachedCounters
       return null;
     }
 
-    ConnectionParams connection;
+    ConfigParams? connection;
+
     try {
       connection = await _connectionResolver.resolve(correlationId);
       if (connection == null) {
@@ -142,7 +143,7 @@ class PrometheusCounters extends CachedCounters
     var job = _source ?? 'unknown';
     var instance = _instance ?? Platform.localHostname;
     _requestRoute = '/metrics/job/' + job + '/instance/' + instance;
-    _uri = connection.getUri();
+    _uri = connection.getAsString('uri');
     _client = http.Client();
     _opened = true;
   }
@@ -153,10 +154,10 @@ class PrometheusCounters extends CachedCounters
   /// Return 			      Future that receives null no errors occured.
   /// Throws error
   @override
-  Future close(String correlationId) async {
+  Future close(String? correlationId) async {
     _opened = false;
     if (_client != null) {
-      _client.close();
+      _client!.close();
     }
     _client = null;
     _requestRoute = null;
@@ -170,10 +171,10 @@ class PrometheusCounters extends CachedCounters
     if (_client == null || !_pushEnabled) return;
     var body = PrometheusCounterConverter.toString2(counters, null, null);
 
-    var url = _uri + _requestRoute;
+    var url = _uri! + _requestRoute!;
     try {
-      var response =
-          await _client.put(url, headers: {'Accept': 'text/html'}, body: body);
+      var response = await _client!
+          .put(Uri.parse(url), headers: {'Accept': 'text/html'}, body: body);
       if (response.statusCode >= 400) {
         _logger.error('prometheus-counters', ApplicationException(),
             'Failed to push metrics to prometheus');

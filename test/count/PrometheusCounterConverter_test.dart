@@ -26,7 +26,7 @@ void main() {
           i < knownCounterExecServiceMetricsGoodTestCases.length;
           i++) {
         var testData = knownCounterExecServiceMetricsGoodTestCases[i];
-        final counterName = testData['counterName'];
+        final counterName = testData['counterName']!;
         final expectedName = testData['expectedName'];
 
         var counters = <Counter>[];
@@ -60,12 +60,12 @@ void main() {
         var body = PrometheusCounterConverter.toString2(
             counters, 'MyApp', 'MyInstance');
 
-        var expected = '# TYPE ${expectedName} gauge\n${expectedName}{source=\"MyApp\",instance=\"MyInstance\",service=\"MyService1\",command=\"MyCommand1\"} 1\n' +
+        var expected = '# TYPE $expectedName gauge\n$expectedName{source=\"MyApp\",instance=\"MyInstance\",service=\"MyService1\",command=\"MyCommand1\"} 1\n' +
             ('# TYPE ${expectedName}_max gauge\n${expectedName}_max{source=\"MyApp\",instance=\"MyInstance\",service=\"MyService1\",command=\"MyCommand1\"} 13\n') +
             '# TYPE ${expectedName}_min gauge\n${expectedName}_min{source=\"MyApp\",instance=\"MyInstance\",service=\"MyService1\",command=\"MyCommand1\"} 3\n' +
             '# TYPE ${expectedName}_average gauge\n${expectedName}_average{source=\"MyApp\",instance=\"MyInstance\",service=\"MyService1\",command=\"MyCommand1\"} 3.5\n' +
             '# TYPE ${expectedName}_count gauge\n${expectedName}_count{source=\"MyApp\",instance=\"MyInstance\",service=\"MyService1\",command=\"MyCommand1\"} 11\n' +
-            '# TYPE ${expectedName} gauge\n${expectedName}{source=\"MyApp\",instance=\"MyInstance\",service=\"MyService1\",command=\"MyCommand1\"} 2\n' +
+            '# TYPE $expectedName gauge\n$expectedName{source=\"MyApp\",instance=\"MyInstance\",service=\"MyService1\",command=\"MyCommand1\"} 2\n' +
             '# TYPE ${expectedName}_max gauge\n${expectedName}_max{source=\"MyApp\",instance=\"MyInstance\",service=\"MyService1\",command=\"MyCommand1\"} 113\n' +
             '# TYPE ${expectedName}_min gauge\n${expectedName}_min{source=\"MyApp\",instance=\"MyInstance\",service=\"MyService1\",command=\"MyCommand1\"} 13\n' +
             '# TYPE ${expectedName}_average gauge\n${expectedName}_average{source=\"MyApp\",instance=\"MyInstance\",service=\"MyService1\",command=\"MyCommand1\"} 13.5\n' +
@@ -95,7 +95,7 @@ void main() {
           i < knownCounterExecClientMetricsGoodTestCases.length;
           i++) {
         var testData = knownCounterExecClientMetricsGoodTestCases[i];
-        final counterName = testData['counterName'];
+        final counterName = testData['counterName']!;
         final expectedName = testData['expectedName'];
 
         var counters = <Counter>[];
@@ -129,12 +129,12 @@ void main() {
         var body = PrometheusCounterConverter.toString2(
             counters, 'MyApp', 'MyInstance');
 
-        var expected = '# TYPE ${expectedName} gauge\n${expectedName}{source=\"MyApp\",instance=\"MyInstance\",service=\"MyService1\",command=\"MyCommand1\",target=\"MyTarget1\"} 1\n' +
+        var expected = '# TYPE $expectedName gauge\n$expectedName{source=\"MyApp\",instance=\"MyInstance\",service=\"MyService1\",command=\"MyCommand1\",target=\"MyTarget1\"} 1\n' +
             ('# TYPE ${expectedName}_max gauge\n${expectedName}_max{source=\"MyApp\",instance=\"MyInstance\",service=\"MyService1\",command=\"MyCommand1\",target=\"MyTarget1\"} 13\n') +
             '# TYPE ${expectedName}_min gauge\n${expectedName}_min{source=\"MyApp\",instance=\"MyInstance\",service=\"MyService1\",command=\"MyCommand1\",target=\"MyTarget1\"} 3\n' +
             '# TYPE ${expectedName}_average gauge\n${expectedName}_average{source=\"MyApp\",instance=\"MyInstance\",service=\"MyService1\",command=\"MyCommand1\",target=\"MyTarget1\"} 3.5\n' +
             '# TYPE ${expectedName}_count gauge\n${expectedName}_count{source=\"MyApp\",instance=\"MyInstance\",service=\"MyService1\",command=\"MyCommand1\",target=\"MyTarget1\"} 11\n' +
-            '# TYPE ${expectedName} gauge\n${expectedName}{source=\"MyApp\",instance=\"MyInstance\",service=\"MyService1\",command=\"MyCommand1\",target=\"MyTarget1\"} 2\n' +
+            '# TYPE $expectedName gauge\n$expectedName{source=\"MyApp\",instance=\"MyInstance\",service=\"MyService1\",command=\"MyCommand1\",target=\"MyTarget1\"} 2\n' +
             '# TYPE ${expectedName}_max gauge\n${expectedName}_max{source=\"MyApp\",instance=\"MyInstance\",service=\"MyService1\",command=\"MyCommand1\",target=\"MyTarget1\"} 113\n' +
             '# TYPE ${expectedName}_min gauge\n${expectedName}_min{source=\"MyApp\",instance=\"MyInstance\",service=\"MyService1\",command=\"MyCommand1\",target=\"MyTarget1\"} 13\n' +
             '# TYPE ${expectedName}_average gauge\n${expectedName}_average{source=\"MyApp\",instance=\"MyInstance\",service=\"MyService1\",command=\"MyCommand1\",target=\"MyTarget1\"} 13.5\n' +
@@ -164,7 +164,7 @@ void main() {
           i < knownCounterExecQueueMetricsGoodTestCases.length;
           i++) {
         var testData = knownCounterExecQueueMetricsGoodTestCases[i];
-        final counterName = testData['counterName'];
+        final counterName = testData['counterName']!;
         final expectedName = testData['expectedName'];
 
         var counters = <Counter>[];
@@ -198,12 +198,12 @@ void main() {
         var body = PrometheusCounterConverter.toString2(
             counters, 'MyApp', 'MyInstance');
 
-        var expected = '# TYPE ${expectedName} gauge\n${expectedName}{source=\"MyApp\",instance=\"MyInstance\",queue=\"default\"} 1\n' +
+        var expected = '# TYPE $expectedName gauge\n$expectedName{source=\"MyApp\",instance=\"MyInstance\",queue=\"default\"} 1\n' +
             ('# TYPE ${expectedName}_max gauge\n${expectedName}_max{source=\"MyApp\",instance=\"MyInstance\",queue=\"default\"} 13\n') +
             '# TYPE ${expectedName}_min gauge\n${expectedName}_min{source=\"MyApp\",instance=\"MyInstance\",queue=\"default\"} 3\n' +
             '# TYPE ${expectedName}_average gauge\n${expectedName}_average{source=\"MyApp\",instance=\"MyInstance\",queue=\"default\"} 3.5\n' +
             '# TYPE ${expectedName}_count gauge\n${expectedName}_count{source=\"MyApp\",instance=\"MyInstance\",queue=\"default\"} 11\n' +
-            '# TYPE ${expectedName} gauge\n${expectedName}{source=\"MyApp\",instance=\"MyInstance\",queue=\"default\"} 2\n' +
+            '# TYPE $expectedName gauge\n$expectedName{source=\"MyApp\",instance=\"MyInstance\",queue=\"default\"} 2\n' +
             '# TYPE ${expectedName}_max gauge\n${expectedName}_max{source=\"MyApp\",instance=\"MyInstance\",queue=\"default\"} 113\n' +
             '# TYPE ${expectedName}_min gauge\n${expectedName}_min{source=\"MyApp\",instance=\"MyInstance\",queue=\"default\"} 13\n' +
             '# TYPE ${expectedName}_average gauge\n${expectedName}_average{source=\"MyApp\",instance=\"MyInstance\",queue=\"default\"} 13.5\n' +

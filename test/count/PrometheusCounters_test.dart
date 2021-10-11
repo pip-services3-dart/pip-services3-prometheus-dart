@@ -7,8 +7,8 @@ import '../fixtures/CountersFixture.dart';
 
 void main() {
   group('PrometheusCounters', () {
-    PrometheusCounters _counters;
-    CountersFixture _fixture;
+    late PrometheusCounters _counters;
+    late CountersFixture _fixture;
 
     setUp(() async {
       var host =

@@ -1,7 +1,9 @@
+import 'dart:async';
+
 import 'package:pip_services3_commons/pip_services3_commons.dart';
 import 'package:pip_services3_rpc/pip_services3_rpc.dart';
 import 'package:pip_services3_components/pip_services3_components.dart';
-import 'package:angel_framework/angel_framework.dart' as angel;
+import 'package:shelf/shelf.dart';
 
 import '../count/PrometheusCounters.dart';
 import '../count/PrometheusCounterConverter.dart';
@@ -44,9 +46,9 @@ import '../count/PrometheusCounterConverter.dart';
 ///     print('The Prometheus metrics service is accessible at http://+:8080/metrics');
 
 class PrometheusMetricsService extends RestService {
-  CachedCounters _cachedCounters;
-  String _source;
-  String _instance;
+  CachedCounters? _cachedCounters;
+  String? _source;
+  String? _instance;
 
   /// Creates a new instance of this service.
   PrometheusMetricsService() : super() {
@@ -82,13 +84,11 @@ class PrometheusMetricsService extends RestService {
   /// Registers all service routes in HTTP endpoint.
   @override
   void register() {
-    registerRoute('get', 'metrics', null,
-        (angel.RequestContext req, angel.ResponseContext res) {
-      _metrics(req, res);
+    registerRoute('get', 'metrics', null, (Request req) async {
+      return await _metrics(req);
     });
-    registerRoute('get', 'metricsandreset', null,
-        (angel.RequestContext req, angel.ResponseContext res) {
-      _metricsAndReset(req, res);
+    registerRoute('get', 'metricsandreset', null, (Request req) async {
+      return await _metricsAndReset(req);
     });
   }
 
@@ -96,33 +96,27 @@ class PrometheusMetricsService extends RestService {
   ///
   /// - [req]   an HTTP request
   /// - [res]   an HTTP response
-  void _metrics(angel.RequestContext req, angel.ResponseContext res) {
-    var counters = _cachedCounters != null ? _cachedCounters.getAll() : null;
+  FutureOr<Response> _metrics(Request req) {
+    var counters = _cachedCounters != null ? _cachedCounters!.getAll() : null;
     var body =
         PrometheusCounterConverter.toString2(counters, _source, _instance);
 
-    res.headers.addAll({'content-type': 'text/plain'});
-    res.statusCode = 200;
-    res.write(body);
-    res.close();
+    return Response(200, headers: {'content-type': 'text/plain'}, body: body);
   }
 
   /// Handles metricsandreset requests.
   /// The counters will be returned and then zeroed out.
   /// - [req]   an HTTP request
   /// - [res]   an HTTP response
-  void _metricsAndReset(angel.RequestContext req, angel.ResponseContext res) {
-    var counters = _cachedCounters != null ? _cachedCounters.getAll() : null;
+  FutureOr<Response> _metricsAndReset(Request req) {
+    var counters = _cachedCounters != null ? _cachedCounters!.getAll() : null;
     var body =
         PrometheusCounterConverter.toString2(counters, _source, _instance);
 
     if (_cachedCounters != null) {
-      _cachedCounters.clearAll();
+      _cachedCounters!.clearAll();
     }
 
-    res.headers.addAll({'content-type': 'text/plain'});
-    res.statusCode = 200;
-    res.write(body);
-    res.close();
+    return Response(200, headers: {'content-type': 'text/plain'}, body: body);
   }
 }

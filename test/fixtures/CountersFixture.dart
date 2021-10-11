@@ -5,13 +5,11 @@ import 'package:test/test.dart';
 import 'package:pip_services3_components/pip_services3_components.dart';
 
 class CountersFixture {
-  CachedCounters _counters;
+  final CachedCounters _counters;
 
-  CountersFixture(CachedCounters counters) {
-    _counters = counters;
-  }
+  CountersFixture(CachedCounters counters) : _counters = counters;
 
-  void testSimpleCounters() async {
+  Future testSimpleCounters() async {
     _counters.last('Test.LastValue', 123);
     _counters.last('Test.LastValue', 123456);
 
@@ -47,15 +45,15 @@ class CountersFixture {
     await Future.delayed(Duration(milliseconds: 1000));
   }
 
-  void testMeasureElapsedTime() {
+  Future testMeasureElapsedTime() async {
     var timer = _counters.beginTiming('Test.Elapsed');
 
     Future.delayed(Duration(milliseconds: 100), () async {
       timer.endTiming();
 
       var counter = _counters.get('Test.Elapsed', CounterType.Interval);
-      expect(counter.last > 50, isTrue);
-      expect(counter.last < 5000, isTrue);
+      expect(counter.last! > 50, isTrue);
+      expect(counter.last! < 5000, isTrue);
 
       _counters.dump();
 

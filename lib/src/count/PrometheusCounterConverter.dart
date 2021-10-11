@@ -11,7 +11,7 @@ class PrometheusCounterConverter {
   /// - [source]    a source (context) name.
   /// - [instance]  a unique instance name (usually a host name).
   static String toString2(
-      List<Counter> counters, String source, String instance) {
+      List<Counter>? counters, String? source, String? instance) {
     if (counters == null || counters.isEmpty) return '';
 
     var builder = '';
@@ -103,7 +103,7 @@ class PrometheusCounterConverter {
           builder += counterName +
               labels +
               ' ' +
-              StringConverter.toString2(counter.time.millisecondsSinceEpoch) +
+              StringConverter.toString2(counter.time?.millisecondsSinceEpoch) +
               '\n';
           break;
       }
@@ -113,7 +113,7 @@ class PrometheusCounterConverter {
   }
 
   static String _generateCounterLabel(
-      Counter counter, String source, String instance) {
+      Counter counter, String? source, String? instance) {
     var labels = <String, dynamic>{};
 
     if (source != null && source != '') labels['source'] = source;
@@ -155,12 +155,12 @@ class PrometheusCounterConverter {
     return builder;
   }
 
-  static String _parseCounterName(Counter counter) {
-    if (counter == null && counter.name == null && counter.name == '') {
+  static String _parseCounterName(Counter? counter) {
+    if (counter?.name == null && counter?.name == '' && counter == null) {
       return '';
     }
 
-    var nameParts = counter.name.split('.');
+    var nameParts = counter!.name.split('.');
 
     // If there are other predictable names from which we can parse labels, we can add them below
     // Rest Service Labels
@@ -198,20 +198,21 @@ class PrometheusCounterConverter {
     return counter.name.toLowerCase().replaceAll('.', '_').replaceAll('/', '_');
   }
 
-  //  static Map<String, dynamic> _parseCounterLabels(Counter counter, String source, String instance) {
-  //     var labels = <String, dynamic>{};
+  static Map<String, dynamic> _parseCounterLabels(
+      Counter counter, String? source, String? instance) {
+    var labels = <String, dynamic>{};
 
-  //     if (source != null && source != '') labels['source'] = source;
-  //     if (instance!= null && instance != '') labels['instance'] = instance;
+    if (source != null && source != '') labels['source'] = source;
+    if (instance != null && instance != '') labels['instance'] = instance;
 
-  //     var nameParts = counter.name.split('.');
+    var nameParts = counter.name.split('.');
 
-  //     // If there are other predictable names from which we can parse labels, we can add them below
-  //     if (nameParts.length >= 3 && nameParts[2] == 'exec_time') {
-  //         labels['service'] = nameParts[0];
-  //         labels['command'] = nameParts[1];
-  //     }
+    // If there are other predictable names from which we can parse labels, we can add them below
+    if (nameParts.length >= 3 && nameParts[2] == 'exec_time') {
+      labels['service'] = nameParts[0];
+      labels['command'] = nameParts[1];
+    }
 
-  //     return labels;
-  // }
+    return labels;
+  }
 }

@@ -16,9 +16,9 @@ void main() {
   ]);
 
   group('PrometheusMetricsService', () {
-    PrometheusMetricsService service;
-    PrometheusCounters counters;
-    http.Client rest;
+    late PrometheusMetricsService service;
+    late PrometheusCounters counters;
+    late http.Client rest;
     var url;
 
     setUpAll(() async {
@@ -62,7 +62,7 @@ void main() {
       counters.last('test.counter3', 3);
       counters.timestampNow('test.counter4');
 
-      var result = await rest.get(url + '/metrics');
+      var result = await rest.get(Uri.parse(url + '/metrics'));
 
       expect(result, isNotNull);
       expect(result.statusCode < 400, isTrue);
@@ -75,7 +75,7 @@ void main() {
       counters.last('test.counter3', 3);
       counters.timestampNow('test.counter4');
 
-      var result = await rest.get(url + '/metricsandreset');
+      var result = await rest.get(Uri.parse(url + '/metricsandreset'));
 
       expect(result, isNotNull);
       expect(result.statusCode < 400, isTrue);
